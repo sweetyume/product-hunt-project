@@ -2,7 +2,6 @@ extends layout
 block content
   h1 All products
   a(href='/add')
-    button(type='button') Add a product
     
   each product in products
     a(href=`products/${product.id}`)
