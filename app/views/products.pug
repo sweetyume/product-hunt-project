@@ -1,10 +1,44 @@
 extends layout
 block content
-  h1 All products
-  a(href='/add')
-    
-  each product in products
-    a(href=`products/${product.id}`)
-      h3 #{product.name}
-      p #{product.tagline}
-      img(src='images/logo-google.png')
+  div.container
+    div#home.row
+      div.col-xs-12
+      h1 All products
+      each product in products
+        div.product-card
+          a(href=`products/${product.id}`)
+            div.product-card-image
+              img(src=product.imageLogo, width='80', height='80')
+            div.product-card-body
+              h3 #{ product.name }
+              span #{ product.tagline }
+          ul.product-card-controls.list-inline
+            li
+              a.btn.btn-default(href=`${product.url}`)
+                i.fa.fa-share-square-o
+            li
+              a.btn.btn-default(href=`/edit/${product.id}`)
+                i.fa.fa-pencil
+            li
+              a.btn.btn-default(href=`/remove/${product.id}`)
+                i.fa.fa-trash
+
+
+//- 
+//- extends layout
+//- block content  
+//-   div.container
+//-     div.row 
+//-       h1 All products
+//-       hr 
+//-       each product in products
+//-         div.product-card
+//-           a(href=`products/${product.id}`)
+//-             div.product-card-image
+//-               img(src=product.imageLogo)
+//-             div.product-card-body
+//-               h3 #{product.name}
+//-               span #{product.tagline}
+//-           //- ul.product-card-controls.list-inline
+//-           //-   li
+//-           //-     a.btn.btn-default()

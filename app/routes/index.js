@@ -1,7 +1,21 @@
 const express = require('express');
 
+const path = require('path');
+
 const router = express.Router();
 const Product = require('../models/product');
+const multer = require('multer');
+
+// where and how the files/images should be saved.
+const storage = multer.diskStorage({
+  destination: (request, file, callback) => {
+    callback(null, path.resolve('app', 'public', 'uploads'));
+  },
+  filename: (request, file, callback) => {
+    callback(null, `${file.originalname}.split('.')[1]`);
+  },
+});
+const upload = multer({ storage });
 
 // Get all products
 
@@ -31,15 +45,18 @@ router.get('/add', (request, response) => {
   response.render('add_product');
 });
 
-router.post('/add', (request, response) => {
+router.post('/add', upload.single('imageLogo'), (request, response) => {
   const product = new Product(request.body);
+  product.imageLogo = `/${request.file.destination.split('/').pop()}/${request.file.filename}`;
   product.save((error) => {
     if (error) {
       response.send(error);
     }
     response.redirect('/');
   });
+  console.log(product.imageLogo);
 });
+
 
 // Edit a product
 router.get('/edit/:id', (request, response) => {

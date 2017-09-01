@@ -20,5 +20,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(router);
 
 app.listen(8009, () => {
-  console.log("Product Hunt arrive sur le port 8009");
+  console.log(__dirname);
+  console.log('Product Hunt arrive sur le port 8009');
 });
